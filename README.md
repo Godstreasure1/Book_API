@@ -22,3 +22,9 @@ MONGO_URI=***********
 > install the necessary packages: `npm install`
 
 > run the server : `npm start` or `npm run dev` 
+
+### Assignment
+- complete the function updateBookById and deleteBookById
+- Treasure to do updateBookById
+- Emmanuel to do DeleteBookById
+- All both to read on authentication before we meet next

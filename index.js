@@ -2,7 +2,20 @@ const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
 
+const connectDB = require("./database/db");
+const router = require("./routes/book.route");
+
 const app = express();
+
+app.use(express.json());
+
+connectDB();
+
+app.get(["/home", "/"], (_, res) => {
+  res.send("<h1>Welcome to our book API</h1>");
+});
+
+app.use(router);
 
 const port = process.env.PORT || 1001;
 
