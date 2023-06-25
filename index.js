@@ -3,7 +3,8 @@ dotenv.config();
 const express = require("express");
 
 const connectDB = require("./database/db");
-const router = require("./routes/book.route");
+const bookRouter = require("./routes/book.route");
+const authRouter = require("./routes/user.route");
 
 const app = express();
 
@@ -15,7 +16,8 @@ app.get(["/home", "/"], (_, res) => {
   res.send("<h1>Welcome to our book API</h1>");
 });
 
-app.use(router);
+app.use("/auth", authRouter);
+app.use(bookRouter);
 
 const port = process.env.PORT || 1001;
 

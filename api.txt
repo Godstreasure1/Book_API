@@ -1,0 +1,18 @@
+Authentication and Authorization
+security
+- tools or packages: bcrypt (for hashing of passwords or credentials), jwt (for serialization and deserialization)
+Session
+serialization
+Deserialization
+
+
+
+Authentication and Authorization
+- Session management - redis for session || mongodb for session
+- Bearer Token - jwt - JsonWebToken
+- Basic Auth - username and passwords
+- OAuth2 - social login (gmail, facebook, github etc...)
+
+
+# Middleware
+A middleware is like a function or method that will run before the next method to it runs
