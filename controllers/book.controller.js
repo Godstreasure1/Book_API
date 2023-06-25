@@ -31,10 +31,13 @@ const updateBookById = async (req, res) => {
 };
 
 const deleteBookById = async (req, res) => {
-  // complete this function
-  app.delete("/delete/:_id",async (req, resp) =>{
-    console.log(req.params)
-  })
+  const id = req.params.id;
+  try {
+    await Book.findByIdAndDelete({ _id: id });
+    return res.status(200).json({ message: "Book deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 module.exports = {

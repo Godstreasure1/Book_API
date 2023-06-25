@@ -16,3 +16,20 @@ Authentication and Authorization
 
 # Middleware
 A middleware is like a function or method that will run before the next method to it runs
+
+
+# Assignment
+- Create a github repo called user_registry
+- clone the github repo(empty repo) into your local machine(laptop)
+- Implementation the route, method to register a user successfully.
+- Take into account the schema to use:
+1. firstName
+2. lastName
+3. email
+4. age
+5. password
+
+-Note that the user_registry is only suppose to have one user, make sure not to have more than one user
+i.e one email per a user
+
+- Note: make sure to hash the password using bcrypt.
