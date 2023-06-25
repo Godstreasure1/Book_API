@@ -37,6 +37,9 @@ const updateBookById = async (req, res) => {
 
 const deleteBookById = async (req, res) => {
   // complete this function
+  app.delete("/delete/:_id",async (req, resp) =>{
+    console.log(req.params)
+  })
 };
 
 module.exports = {
