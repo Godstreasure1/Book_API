@@ -6,10 +6,12 @@ const {
   deleteBookById,
 } = require("../controllers/book.controller");
 
+const validateInput = require("../middleware/validation");
+
 const router = express.Router();
 
 router.get("/book", getBooks);
-router.post("/book", addBook);
+router.post("/book", validateInput, addBook);
 router.put("/book/:id", updateBookById);
 router.delete("/book/:id", deleteBookById);
 
