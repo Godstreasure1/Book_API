@@ -3,11 +3,6 @@ const Book = require("../models/book.model");
 const addBook = async (req, res) => {
   // destructuring
   const { author, title, description, publishDate } = req.body;
-
-  if (!author || !title || !description) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
   try {
     const book = await Book.create({
       author,
@@ -56,10 +51,8 @@ const updateBookById = async (req, res) => {
   
  
 const deleteBookById = async (req, res) => {
-//complete this function
-
-}
-  
+  // complete this function
+};
 
 module.exports = {
   addBook,
