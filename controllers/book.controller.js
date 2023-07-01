@@ -42,17 +42,31 @@ const getBooks = async (req, res) => {
 };
 
 const updateBookById = async (req, res) => {
-  // complete this function
-};
-
-const deleteBookById = async (req, res) => {
-  const id = req.params.id;
-  try {
-    await Book.findByIdAndDelete({ _id: id });
-    return res.status(200).json({ message: "Book deleted successfully" });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  
+  try{
+    const book = await Book_API.findById(id);
+    
+    if (!note) {
+      return res.status(400).json({ message:`${id} information does not exist`});
   }
+
+   book.author = author;
+   await book.save();
+
+   return res.status(201).json ({message: `${id} book updated successfully`, book: book});
+} catch (error) {
+  if (error.kind ==="objectid") {
+    return res.status (400).json({message:`${id} information does not exist`});
+  }
+  return res.status(500).json({ message:error});
+
+  }
+
+};
+  
+ 
+const deleteBookById = async (req, res) => {
+  // complete this function
 };
 
 module.exports = {
