@@ -17,6 +17,7 @@ This API is designed for the purpose of keeping documentaries and records
 ```
 PORT=****
 MONGO_URI=***********
+JWT_SECRET=*********
 ```
 
 > install the necessary packages: `npm install`
