@@ -27,12 +27,11 @@ const addBook = async (req, res) => {
 };
 
 const getBooks = async (req, res) => {
-  const userId = req.user.id;
   try {
     const books = await Book.find().populate({
       path: "userId",
       options: {
-        select: ["fullNames", "email", "_id"],
+        select: { fullNames: 1, email: 1 },
       },
     });
     return res.status(200).json({ books });
@@ -41,37 +40,66 @@ const getBooks = async (req, res) => {
   }
 };
 
-const updateBookById = async (req, res) => {
-  
-  try{
-    const book = await Book_API.findById(id);
-    
-    if (!note) {
-      return res.status(400).json({ message:`${id} information does not exist`});
+const getAuthorBooks = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const book = await Book.find({ userId }).populate({
+      path: "userId",
+      options: {
+        select: "fullNames email",
+      },
+    });
+
+    return res.status(200).json({ book });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
-
-   book.author = author;
-   await book.save();
-
-   return res.status(201).json ({message: `${id} book updated successfully`, book: book});
-} catch (error) {
-  if (error.kind ==="objectid") {
-    return res.status (400).json({message:`${id} information does not exist`});
-  }
-  return res.status(500).json({ message:error});
-
-  }
-
 };
-  
- 
-const deleteBookById = async (req, res) => {
-  // complete this function
+
+const updateBook = async (req, res) => {
+  const userId = req.user.id;
+  const { title, description, publishDate } = req.body;
+  try {
+    const book = await Book.findOne({ userId });
+
+    if (title) book.title = title;
+
+    if (description) book.description = description;
+
+    if (publishDate) book.publishDate = publishDate;
+
+    await book.save();
+
+    return res.status(201).json({ message: `book updated successfully`, book });
+  } catch (error) {
+    if (error.kind === "objectid") {
+      return res
+        .status(400)
+        .json({ message: `${id} information does not exist` });
+    }
+    return res.status(500).json({ message: error });
+  }
+};
+
+const deleteBook = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    await Book.findOneAndDelete({ userId });
+    return res.status(200).json({ message: "Book deleted successfully" });
+  } catch (error) {
+    if (error.kind === "objectid") {
+      return res
+        .status(400)
+        .json({ message: `${id} information does not exist` });
+    }
+    return res.status(500).json({ message: error });
+  }
 };
 
 module.exports = {
   addBook,
   getBooks,
-  updateBookById,
-  deleteBookById,
+  getAuthorBooks,
+  updateBook,
+  deleteBook,
 };
