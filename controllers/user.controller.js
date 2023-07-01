@@ -63,13 +63,11 @@ const login = async (req, res) => {
       maxAge: 3600000,
     });
 
-    return res
-      .status(200)
-      .json({
-        message: "user logged in successfully",
-        status: "success",
-        token,
-      });
+    return res.status(200).json({
+      message: "user logged in successfully",
+      status: "success",
+      token,
+    });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
