@@ -1,4 +1,4 @@
-const validateUser = (req, res, next) => {
+const validateRegisterInput = (req, res, next) => {
   let { fullNames, email, password } = req.body;
 
   switch (true) {
@@ -21,4 +21,14 @@ const validateUser = (req, res, next) => {
   }
 };
 
-module.exports = validateUser;
+const validateLoginInput = (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email) return res.status(400).json({ message: "email is required" });
+  if (!password)
+    return res.status(400).json({ message: "password is required" });
+  next();
+};
+module.exports = {
+  validateRegisterInput,
+  validateLoginInput,
+};

@@ -33,3 +33,11 @@ A middleware is like a function or method that will run before the next method t
 i.e one email per a user
 
 - Note: make sure to hash the password using bcrypt.
+
+
+Association/relationship
+e.g one author can have many posts
+e.g one user can have only one profile
+e.g many users can have many comments on a post
+
+user or author can publish many books

@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const bookSchema = new mongoose.Schema(
   {
-    author: {
-      type: String,
-      required: true,
-    },
     title: {
       type: String,
       required: true,
@@ -17,6 +13,10 @@ const bookSchema = new mongoose.Schema(
     publishDate: {
       type: Date,
       default: Date.now,
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {

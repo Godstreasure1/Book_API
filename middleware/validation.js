@@ -1,11 +1,5 @@
 const validateInput = (req, res, next) => {
-  const { author, title, description } = req.body;
-
-  if (!author || typeof author !== "string") {
-    return res
-      .status(400)
-      .json({ message: "Author is required and must be a string" });
-  }
+  const { title, description } = req.body;
   if (!title || typeof title !== "string") {
     return res
       .status(400)

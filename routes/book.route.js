@@ -7,12 +7,13 @@ const {
 } = require("../controllers/book.controller");
 
 const validateInput = require("../middleware/validation");
+const isAuth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/book", getBooks);
-router.post("/book", validateInput, addBook);
-router.put("/book/:id", updateBookById);
-router.delete("/book/:id", deleteBookById);
+router.get("/book", isAuth, getBooks);
+router.post("/book", isAuth, validateInput, addBook);
+router.put("/book/:id", isAuth, updateBookById);
+router.delete("/book/:id", isAuth, deleteBookById);
 
 module.exports = router;
