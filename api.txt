@@ -41,3 +41,12 @@ e.g one user can have only one profile
 e.g many users can have many comments on a post
 
 user or author can publish many books
+
+How to send email with nodemailer
+# Nodemailer
+
+Assignment2:
+create an API:
+- user can register
+- user can login
+- user can request for change of password(Implementate forgot password)

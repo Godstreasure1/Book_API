@@ -16,6 +16,9 @@ app.get(["/home", "/"], (_, res) => {
   res.send("<h1>Welcome to our book API</h1>");
 });
 
+app.get("/user/verified", (_, res) => {
+  res.send("<h1>Your account has been successfully verified</h1>");
+});
 app.use("/auth", authRouter);
 app.use(bookRouter);
 
