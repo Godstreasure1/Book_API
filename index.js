@@ -22,6 +22,10 @@ app.get("/user/verified", (_, res) => {
 app.use("/auth", authRouter);
 app.use(bookRouter);
 
+app.use("*", (_, res) => {
+  res.status(404).send("Not Found");
+});
+
 const port = process.env.PORT || 1001;
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

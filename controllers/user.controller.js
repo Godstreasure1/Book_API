@@ -105,8 +105,76 @@ const login = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const userExist = await User.findOne({ email });
+    if (!userExist)
+      return res
+        .status(400)
+        .json({ message: "user does not exist, please sign up" });
+
+    const token = jwt.sign(
+      { id: userExist._id, email: userExist.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    const forgotPasswordLink = `http://localhost:1001/auth/reset-password?token=${token}`;
+
+    const subject = "Password Reset";
+    const text = "Reset Your Password";
+    const html = `<h1>Hello ${
+      userExist.fullNames.split(" ")[0]
+    }</h1> <h3>click the link below to reset-password</h3>
+    <h3>${forgotPasswordLink}</h3>`;
+
+    await sendMail(userExist.email, subject, text, html);
+
+    return res
+      .status(200)
+      .json({ message: "password reset link sent to your email" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token } = req.query;
+  const { newPassword, confirmPassword } = req.body;
+  try {
+    if (!token) return res.status(400).json({ message: "Invalid request" });
+    const validToken = await jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!validToken)
+      return res.status(400).json({ message: "token expired or malformed" });
+
+    if (newPassword !== confirmPassword)
+      return res
+        .status(400)
+        .json({ message: "password and confirm password must tally" });
+
+    let user = await User.findById(validToken.id);
+
+    const hashPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashPassword;
+
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "password reset successfully", status: "success" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   register,
   login,
   verifyUser,
+  forgotPassword,
+  resetPassword,
 };
