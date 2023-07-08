@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/email");
+const { emailTemplate } = require("../utils/template");
 
 const register = async (req, res) => {
   let { fullNames, email, password } = req.body;
@@ -35,8 +36,7 @@ const register = async (req, res) => {
 
     const subject = "Welcome to Book_API";
     const text = "Welcome to Book_API";
-    const html = `<h1>Hello ${firstName}</h1> <p>welcome to the best Book API, please click the link below to verify your account</p>
-    <h3>${verificationUrl}</h3>`;
+    const html = emailTemplate(firstName, verificationUrl);
 
     await sendMail(email, subject, text, html);
     return res.status(201).json({

@@ -1,17 +1,24 @@
 const Book = require("../models/book.model");
 const User = require("../models/user.model");
+const cloudinary = require("../utils/cloudinary");
 
 const addBook = async (req, res) => {
   // destructuring
   const { title, description, publishDate } = req.body;
   const userId = req.user.id;
   try {
-    const book = await Book.create({
+    let book = await Book.create({
       title,
       description,
       publishDate,
       userId,
     });
+
+    if (req.file) {
+      image = await cloudinary.uploader.upload(req.file.path);
+      book.image = image.secure_url;
+      await book.save();
+    }
 
     const user = await User.findById(userId);
 
