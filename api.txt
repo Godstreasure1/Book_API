@@ -50,3 +50,11 @@ create an API:
 - user can register
 - user can login
 - user can request for change of password(Implementate forgot password)
+
+
+Authorization
+-RBAC (Role Based Access Control) - using same schema or table or collection for different types of users
+
+The aggregate framework of mongoDB
+
+SQL - Structure Query Language. The language for Relational Database

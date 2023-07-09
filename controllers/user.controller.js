@@ -5,7 +5,7 @@ const sendMail = require("../utils/email");
 const { emailTemplate } = require("../utils/template");
 
 const register = async (req, res) => {
-  let { fullNames, email, password } = req.body;
+  let { fullNames, email, password, role } = req.body;
 
   const firstName = fullNames.split(" ")[0];
 
@@ -26,6 +26,7 @@ const register = async (req, res) => {
       fullNames,
       email,
       password,
+      role,
     });
 
     const token = jwt.sign({ id: user._id, email }, process.env.JWT_SECRET, {
@@ -85,7 +86,7 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "incorrect password" });
 
     const token = jwt.sign(
-      { id: userExist._id, email: userExist.email },
+      { id: userExist._id, email: userExist.email, role: userExist.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );

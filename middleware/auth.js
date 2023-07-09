@@ -16,4 +16,14 @@ const isAuth = (req, res, next) => {
   }
 };
 
-module.exports = isAuth;
+const isAdmin = (req, res, next) => {
+  if (req.user.role !== "admin")
+    return res.status(403).json({ message: "Forbidden, You are not an Admin" });
+
+  next();
+};
+
+module.exports = {
+  isAuth,
+  isAdmin,
+};

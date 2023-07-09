@@ -8,7 +8,7 @@ const {
 } = require("../controllers/book.controller");
 
 const validateInput = require("../middleware/validation");
-const isAuth = require("../middleware/auth");
+const { isAuth } = require("../middleware/auth");
 const upload = require("../utils/multer");
 
 const router = express.Router();
